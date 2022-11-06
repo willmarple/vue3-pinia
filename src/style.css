@@ -103,3 +103,10 @@ button {
     max-width: 1280px;
     margin: 0 auto;
 }
+
+.modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+}
