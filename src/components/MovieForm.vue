@@ -5,15 +5,16 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
-import {userMovieStore} from "../store/userMovieStore.js";
+import {computed} from "vue";
+import {useMovieStore} from "../store/useMovieStore.js";
 import {debounce} from "lodash";
 
-const searchTerm = ref("");
-const store = userMovieStore();
+const movieStore = useMovieStore();
+const searchTerm = computed(() => movieStore.searchTerm);
 
 const search = debounce(function (e) {
-  store.searchMovie(e.target.value);
+  movieStore.searchTerm = e.target.value;
+  movieStore.searchMovie();
 }, 500);
 </script>
 
@@ -22,16 +23,6 @@ const search = debounce(function (e) {
   width: 800px;
   display: flex;
   justify-content: center;
-}
-
-.form__input {
-  border: 1px solid #929292;
-  border-radius: 4px;
-  padding: 16px 8px;
-  margin-top: 25px;
-  margin-bottom: 15px;
-  height: 20px;
-  width: 50%;
 }
 
 button {
@@ -45,13 +36,8 @@ button {
   width: 15%;
 }
 
-.alert-div {
-  min-height: 25px;
-}
-
-.alert {
-  color: #d1495b;
-  font-size: 1em;
-  font-weight: 600;
+.form__input {
+  margin-top: 25px;
+  margin-bottom: 15px;
 }
 </style>
