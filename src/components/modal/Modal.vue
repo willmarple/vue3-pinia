@@ -34,5 +34,6 @@ const modalStore = useModalStore();
   position: relative;
   overflow-y: auto;
   max-height: 80vh;
+  border: 1px solid var(--border);
 }
 </style>

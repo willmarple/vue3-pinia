@@ -14,6 +14,8 @@ const searchTerm = computed(() => movieStore.searchTerm);
 
 const search = debounce(function (e) {
   movieStore.searchTerm = e.target.value;
+  movieStore.movies = [];
+  movieStore.currentPage = 1;
   movieStore.searchMovie();
 }, 500);
 </script>
