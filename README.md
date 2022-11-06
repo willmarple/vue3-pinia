@@ -1,6 +1,5 @@
 # Watch Blitz
-
-## This is an example app demonstrating architectural patterns when using Vue3 and Pinia.
+An example app demonstrating architectural patterns when using Vue 3 and Pinia.
 
 # Getting Started
 
