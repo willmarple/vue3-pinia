@@ -1,7 +1,23 @@
-# Vue 3 + Vite
+# Watch Blitz
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## This is an example app demonstrating architectural patterns when using Vue3 and Pinia.
 
-## Recommended IDE Setup
+# Getting Started
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## Create an OMDB API key (it's free)
+
+1. Go to [OMDB](http://www.omdbapi.com/apikey.aspx) and create an API key
+2. `cp .env.example .env`
+3. Add your API key to `.env`
+
+## Install dependencies
+
+```bash
+npm install
+```
+
+## Run the app
+
+```bash
+npm run dev
+```
