@@ -1,32 +1,27 @@
 <!--suppress ALL -->
 <template>
   <div class="stats">
-    <div class="stats__item">
-      <span class="stats__label">Total movies: </span>
-      <span class="stats__value">{{ totalMovies }}</span>
-    </div>
-    <div class="stats__item">
-      <span class="stats__label">Total duration: </span>
-      <span class="stats__value">{{ totalDuration }}</span>
-    </div>
-    <div class="stats__controls">
-      <input class="form__input" type="text" placeholder="name" v-model="name" @keydown.enter="save">
-      <button class="button" type="button" @click="save">save</button>
-      <button class="button danger" type="button" @click="clearCurrentList">clear</button>
-    </div>
+    <table class="stats__item">
+      <tr>
+        <td><span class="stats__label">Total movies:</span></td>
+        <td><span class="stats__value">{{ totalMovies }}</span></td>
+      </tr>
+      <tr>
+        <td><span class="stats__label">Total duration: </span></td>
+        <td><span class="stats__value">{{ totalDuration }}</span></td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script setup>
 import {useMovieStore} from "../store/useMovieStore.js";
-import {computed, ref} from "vue";
+import {computed} from "vue";
 import {minutesToHours} from "date-fns";
 import {useListControls} from "./use/useListControls.js";
 
 const movieStore = useMovieStore();
 const currentList = computed(() => movieStore.currentList);
-const firstItem = computed(() => currentList.value.length ? currentList.value[0] : null);
-const name = ref(firstItem.value?.playlist?.name ?? '');
 
 const totalMovies = computed(() => movieStore.currentList.length);
 const totalDuration = computed(() => {
@@ -43,18 +38,19 @@ const totalDuration = computed(() => {
 
   return `${hours}h ${minutes}m`;
 });
-
-const {updateOrAddCurrentListToPlaylists, clearCurrentList} = useListControls();
-
-function save() {
-  updateOrAddCurrentListToPlaylists(name.value);
-}
 </script>
 
 <style scoped>
-.stats__controls {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
+.stats__item {
+  border-spacing: 1rem 0;
+  border-collapse: separate;
+}
+
+.stats__label {
+  margin-left: -1rem;
+}
+
+.stats__value {
+  font-weight: bold;
 }
 </style>

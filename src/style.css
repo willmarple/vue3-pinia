@@ -22,6 +22,14 @@
     --brand-primary-1: rgba(148, 153, 255, 0.8);
     --brand-primary-2: rgba(148, 153, 255, 0.6);
     --brand-primary-3: rgba(148, 153, 255, 0.4);
+    --brand-secondary: rgba(123, 40, 178);
+    --brand-secondary-1: rgba(123, 40, 178, 0.8);
+    --brand-secondary-2: rgba(123, 40, 178, 0.6);
+    --brand-secondary-3: rgba(123, 40, 178, 0.4);
+    --brand-teritary: rgba(189, 0, 88);
+    --brand-teritary-1: rgba(189, 0, 88, 0.8);
+    --brand-teritary-2: rgba(189, 0, 88, 0.6);
+    --brand-teritary-3: rgba(189, 0, 88, 0.4);
     --bg-negative: #1a1a1a;
     --bg-positive: #252525;
     --border: #929292;
@@ -44,8 +52,9 @@
 }
 
 h1 {
-    font-size: 42px;
-    font-weight: 900;;
+    line-height: 1.5em;
+    font-size: 52px;
+    font-weight: 900;
 }
 
 h2 {
@@ -60,6 +69,10 @@ h3 {
 
 button {
     cursor: pointer;
+}
+
+body {
+    background: url('/waveline-bg.jpg') no-repeat 0 / cover fixed;
 }
 
 .button {
@@ -92,7 +105,7 @@ button {
 }
 
 .form__input {
-    border: 1px solid #929292;
+    border: 1px solid var(--grey-400);
     border-radius: 4px;
     padding: 16px 8px;
     height: 20px;
@@ -102,6 +115,25 @@ button {
 #app {
     max-width: 1280px;
     margin: 0 auto;
+}
+
+#app:before,
+#app:after {
+  content: '';
+  position: fixed;
+  top: 0;
+  width: calc((100vw - 1200px) / 2);
+  height: 100%;
+}
+
+#app:before {
+    left: 0;
+    background: linear-gradient(90deg, transparent 30%, rgb(0 0 0 / 70%) 90%, rgb(0 0 0 / 75%));
+}
+
+#app:after {
+    right: 0;
+    background: linear-gradient(90deg, rgb(0 0 0 / 75%), rgb(0 0 0 / 70%) 10%, transparent 70%);
 }
 
 .modal__close {
