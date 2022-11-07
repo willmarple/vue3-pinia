@@ -1,11 +1,15 @@
 <template>
   <div class="form">
-    <input class="form__input" :value="searchTerm" @input="search" type="text"/>
+    <div class="form__search-wrapper">
+      <input class="form__input" :value="searchTerm" @input="search" type="text" placeholder="Search movies..."/>
+      <img class="form__search-icon" :src="iconSearch" alt="Search Movies"/>
+    </div>
   </div>
 </template>
 
 <script setup>
 import {computed} from "vue";
+import iconSearch from "../assets/icon-search.svg"
 import {useMovieStore} from "../store/useMovieStore.js";
 import {debounce} from "lodash";
 
@@ -38,8 +42,35 @@ button {
   width: 15%;
 }
 
-.form__input {
+.form__search-wrapper {
+  width: 50%;
+  position: relative;
   margin-top: 25px;
   margin-bottom: 15px;
+  color: #fff;
+}
+
+.form__input {
+  width: 100%;
+  height: 48px;
+  padding: 0 32px 0 56px;
+  line-height: 40px;
+  border-radius: 48px;
+  font-size: 24px;
+}
+
+.form__search-icon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  opacity: 0.4;
+  transition: opacity 0.2s ease-out;
+}
+
+.form__search-wrapper:focus-within .form__search-icon,
+.form__input:not(:placeholder-shown) + .form__search-icon {
+  opacity: 1;
 }
 </style>
