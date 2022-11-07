@@ -24,7 +24,7 @@
 <script setup>
 import {useMovieStore} from "../store/useMovieStore.js";
 import CurrentPlaylistStats from "./CurrentPlaylistStats.vue";
-import { computed, ref } from 'vue'
+import {computed, ref} from 'vue'
 import {useListControls} from "./use/useListControls.js";
 
 const movieStore = useMovieStore();
@@ -32,11 +32,18 @@ const currentList = computed(() => movieStore.currentList);
 const firstItem = computed(() => currentList.value.length ? currentList.value[0] : null);
 const name = ref(firstItem.value?.playlist?.name ?? '');
 
+movieStore.$subscribe((mutation) => {
+  if (mutation.events.key === 'currentList') {
+    name.value = firstItem.value?.playlist?.name ?? '';
+  }
+});
+
 const showPlaylistStats = computed(() => movieStore.currentList?.length > 0);
 
 const {updateOrAddCurrentListToPlaylists, removeMovieFromCurrentList, clearCurrentList} = useListControls();
 
 function save() {
+  console.log('save', name.value);
   updateOrAddCurrentListToPlaylists(name.value);
 }
 </script>
@@ -67,7 +74,7 @@ function save() {
   transition: background-color 200ms ease-out;
 }
 
-.builder__playlist__input  .form__input:focus {
+.builder__playlist__input .form__input:focus {
   background-color: #161825;
 }
 

@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import axios from "../lib/axios.js";
 
-export const useMovieStore = defineStore("movieList", {
+export const useMovieStore = defineStore("movieStore", {
     state: () => ({
         searchTerm: "",
         movies: [],
