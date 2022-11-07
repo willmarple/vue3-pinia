@@ -17,10 +17,14 @@ const movieStore = useMovieStore();
 const searchTerm = computed(() => movieStore.searchTerm);
 
 const search = debounce(function (e) {
-  movieStore.searchTerm = e.target.value;
-  movieStore.movies = [];
-  movieStore.currentPage = 1;
-  movieStore.searchMovie();
+  const _searchTerm = e.target.value.trim();
+  movieStore.searchTerm = _searchTerm;
+
+  if (_searchTerm) {
+    movieStore.movies = [];
+    movieStore.currentPage = 1;
+    movieStore.searchMovie();
+  }
 }, 500);
 </script>
 

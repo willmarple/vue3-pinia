@@ -6,7 +6,9 @@
     </div>
     <div class="movie__wrapper">
       <Playlists/>
-      <MovieList/>
+      <Suspense>
+        <MovieList/>
+      </Suspense>
     </div>
     <Modal v-if="modalStore.modalOpen"/>
     <Teleport to="body">

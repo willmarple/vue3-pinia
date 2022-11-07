@@ -19,7 +19,7 @@
         </Suspense>
       </div>
     </template>
-    <div v-if="movieStore.searchTerm" class="movie__load-more">
+    <div v-if="movieStore.currentList.length" class="movie__load-more">
       <button class="button" type="button" @click="loadNextPage">load more</button>
     </div>
   </div>
@@ -31,6 +31,8 @@ import {computed} from "vue";
 import MovieListDetail from "./MovieListDetails.vue";
 
 const movieStore = useMovieStore();
+
+await movieStore.searchMovie();
 
 const movieList = computed(() => movieStore.movies);
 
