@@ -113,7 +113,7 @@ export default {
       this.movieStore.currentList = this.movieStore.currentList.filter(listItem => listItem.imdbID !== movie.imdbID)
     },
   },
-  mouted() {
+  mounted() {
     this.movieStore.$subscribe((mutation) => {
       if (mutation.events.key === 'currentList') {
         name.value = firstItem.value?.playlist?.name ?? '';
