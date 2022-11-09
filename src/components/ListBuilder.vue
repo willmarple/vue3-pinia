@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div class="builder__wrapper" v-if="showPlaylistStats">
     <div class="builder">
