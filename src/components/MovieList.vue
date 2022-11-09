@@ -19,7 +19,7 @@
         </Suspense>
       </div>
     </template>
-    <div v-if="movieStore.currentList.length" class="movie__load-more">
+    <div v-if="movieStore.movies.length" class="movie__load-more">
       <button class="button" type="button" @click="loadNextPage">load more</button>
     </div>
   </div>
@@ -91,6 +91,6 @@ function loadNextPage() {
   justify-content: center;
   align-items: center;
   grid-column: span 2;
-  padding: 24px 0 0;
+  padding: 24px 0 24px;
 }
 </style>

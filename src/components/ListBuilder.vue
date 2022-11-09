@@ -43,7 +43,6 @@ const showPlaylistStats = computed(() => movieStore.currentList?.length > 0);
 const {updateOrAddCurrentListToPlaylists, removeMovieFromCurrentList, clearCurrentList} = useListControls();
 
 function save() {
-  console.log('save', name.value);
   updateOrAddCurrentListToPlaylists(name.value);
 }
 </script>
