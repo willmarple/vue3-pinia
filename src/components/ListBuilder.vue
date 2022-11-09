@@ -114,7 +114,6 @@ export default {
     },
   },
   mouted() {
-    console.log('mounted', this.movieStore)
     this.movieStore.$subscribe((mutation) => {
       if (mutation.events.key === 'currentList') {
         name.value = firstItem.value?.playlist?.name ?? '';
