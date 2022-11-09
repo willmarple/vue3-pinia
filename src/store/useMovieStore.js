@@ -3,7 +3,7 @@ import axios from "../lib/axios.js";
 
 export const useMovieStore = defineStore("movieStore", {
     state: () => ({
-        searchTerm: "marvel",
+        searchTerm: "action",
         movies: [],
         currentList: [],
         playlists: [],
