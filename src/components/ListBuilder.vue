@@ -22,29 +22,105 @@
   </div>
 </template>
 
-<script setup>
+<!--<script setup>-->
+<!--import {useMovieStore} from "../store/useMovieStore.js";-->
+<!--import CurrentPlaylistStats from "./CurrentPlaylistStats.vue";-->
+<!--import {computed, ref} from 'vue'-->
+<!--import {useListControls} from "./use/useListControls.js";-->
+
+<!--const movieStore = useMovieStore();-->
+<!--const currentList = computed(() => movieStore.currentList);-->
+<!--const firstItem = computed(() => currentList.value.length ? currentList.value[0] : null);-->
+<!--const name = ref(firstItem.value?.playlist?.name ?? '');-->
+
+<!--movieStore.$subscribe((mutation) => {-->
+<!--  if (mutation.events.key === 'currentList') {-->
+<!--    name.value = firstItem.value?.playlist?.name ?? '';-->
+<!--  }-->
+<!--});-->
+
+<!--const showPlaylistStats = computed(() => movieStore.currentList?.length > 0);-->
+
+<!--const {updateOrAddCurrentListToPlaylists, removeMovieFromCurrentList, clearCurrentList} = useListControls();-->
+
+<!--function save() {-->
+<!--  updateOrAddCurrentListToPlaylists(name.value);-->
+<!--}-->
+<!--</script>-->
+
+<script>
 import {useMovieStore} from "../store/useMovieStore.js";
-import CurrentPlaylistStats from "./CurrentPlaylistStats.vue";
-import {computed, ref} from 'vue'
-import {useListControls} from "./use/useListControls.js";
+import {nanoid} from "nanoid";
+import {mapStores} from "pinia";
 
-const movieStore = useMovieStore();
-const currentList = computed(() => movieStore.currentList);
-const firstItem = computed(() => currentList.value.length ? currentList.value[0] : null);
-const name = ref(firstItem.value?.playlist?.name ?? '');
-
-movieStore.$subscribe((mutation) => {
-  if (mutation.events.key === 'currentList') {
-    name.value = firstItem.value?.playlist?.name ?? '';
-  }
-});
-
-const showPlaylistStats = computed(() => movieStore.currentList?.length > 0);
-
-const {updateOrAddCurrentListToPlaylists, removeMovieFromCurrentList, clearCurrentList} = useListControls();
-
-function save() {
-  updateOrAddCurrentListToPlaylists(name.value);
+export default {
+  data() {
+    return {
+      name: ''
+    }
+  },
+  computed: {
+    ...mapStores(useMovieStore),
+    currentList() {
+      return this.movieStore?.currentList;
+    },
+    firstItem() {
+      return this.currentList.length ? this.currentList[0] : null;
+    },
+    showPlaylistStats() {
+      return this.currentList?.length > 0;
+    }
+  },
+  methods: {
+    updateOrAddCurrentListToPlaylists(name) {
+      if (this.movieStore.currentList.length && this.movieStore.currentList[0].hasOwnProperty('playlist')) {
+        const playlistIndex = this.movieStore.playlists.findIndex(playlist => playlist.id === this.movieStore.currentList[0].playlist.id)
+        const updatedPlaylist = {
+          ...this.movieStore.playlists[playlistIndex],
+          list: this.movieStore.currentList
+        }
+        updatedPlaylist.name = name
+        updatedPlaylist.list = updatedPlaylist.list.map(movie => {
+          return {
+            ...movie,
+            playlist: updatedPlaylist
+          }
+        })
+        this.movieStore.playlists[playlistIndex] = updatedPlaylist
+        this.movieStore.currentList = []
+      } else {
+        addCurrentListToPlaylists(name)
+      }
+    },
+    addCurrentListToPlaylists(name) {
+      const playlistId = nanoid();
+      const playlist = {
+        id: playlistId,
+        name,
+        list: this.movieStore.currentList,
+      }
+      playlist.list = playlist.list.map(movie => ({
+        ...movie,
+        playlist,
+      }))
+      this.movieStore.playlists.push(playlist)
+      this.movieStore.currentList = []
+    },
+    clearCurrentList() {
+      this.movieStore.currentList = []
+    },
+    removeMovieFromCurrentList(movie) {
+      this.movieStore.currentList = this.movieStore.currentList.filter(listItem => listItem.imdbID !== movie.imdbID)
+    },
+  },
+  mouted() {
+    console.log('mounted', this.movieStore)
+    this.movieStore.$subscribe((mutation) => {
+      if (mutation.events.key === 'currentList') {
+        name.value = firstItem.value?.playlist?.name ?? '';
+      }
+    });
+  },
 }
 </script>
 
