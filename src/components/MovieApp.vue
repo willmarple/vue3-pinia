@@ -22,7 +22,6 @@ import Modal from "./modal/Modal.vue";
 import {useModalStore} from "../store/useModalStore.js";
 import Playlists from "./Playlists.vue";
 import MovieList from "./MovieList.vue";
-import ListBuilder from "./ListBuilder.vue";
 import MovieForm from "./MovieForm.vue";
 import {ref} from "vue";
 import viteLogo from "../assets/vite-logo.svg"
